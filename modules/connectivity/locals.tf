@@ -3393,11 +3393,11 @@ locals {
         template = {
           for key, value in resource :
           key => value
-          if resource.managed_by_module &&
+          if local.deploy_virtual_hub_express_route_circuit[resource.location] &&
           key != "resource_id" &&
           key != "managed_by_module"
         }
-        managed_by_module = resource.managed_by_module
+        managed_by_module = local.deploy_virtual_hub_express_route_circuit[resource.location]
       }
     ]
     azurerm_vpn_gateway = [
