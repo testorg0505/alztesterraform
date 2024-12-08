@@ -103,7 +103,7 @@ configure_connectivity_resources = {
     ext_vwan_bastion_networks  = [
       {
         identifier = "vnet_australiaeast"
-        enabled    = false
+        enabled    = true
         config = {
           address_space                = ["10.112.38.0/24", ]
           location                     = "australiaeast"
