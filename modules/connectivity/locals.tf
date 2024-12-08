@@ -362,9 +362,16 @@ locals {
 
 #configuration settings for extended vwan hub design
 locals {
-  deploy_extend_vwan_bastion_network = local.enabled && local.settings.ext_vwan_bastion_networks != local.empty_list
+  # deploy_extend_vwan_bastion_network = local.enabled && local.settings.ext_vwan_bastion_networks != local.empty_list
+  deploy_ext_vwan_bastion_network = {
+    for location, ext_vwan_bastion_network in local.ext_vwan_bastion_networks_by_location :
+    location =>
+    local.enabled &&
+    ext_vwan_bastion_network.enabled
+    }
+
   deploy_ext_vwan_dns_network = {
-    for location , extend_vwan_dns_network in local.ext_vwan_dns_networks_by_location :
+    for location, extend_vwan_dns_network in local.ext_vwan_dns_networks_by_location :
     location =>
     local.enabled &&
     extend_vwan_dns_network.enabled
@@ -2600,7 +2607,7 @@ locals {
       # Resource logic attributes
       resource_id           = local.ext_vwan_bastion_host_resource_id[location]
      # resource_id      = "${local.ext_vwan_bastion_network_resource_id_prefix[location]}/${local.ext_vwan_bastion_network_name[ext_vwan_bastion_network.config.location]}"
-      managed_by_module     = local.deploy_extend_vwan_bastion_network
+      managed_by_module     = local.deploy_ext_vwan_bastion_network[location]
       # Resource definition attributes
       name                  = local.ext_vwan_bastion_host_name[location]
       resource_group_name   = local.resource_group_names_by_scope_and_location["extended_vwan"][location]
@@ -2618,7 +2625,7 @@ locals {
             {
               # Resource logic attributes
               resource_id       = local.ext_vwan_bastion_host_pip_resource_id_prefix[location]
-              managed_by_module = local.deploy_extend_vwan_bastion_network
+              managed_by_module = local.deploy_ext_vwan_bastion_network[location]
               # Resource definition attributes
               name                    = local.ext_vwan_bastion_host_pip_name[location]
               resource_group_name     = local.resource_group_names_by_scope_and_location["extended_vwan"][location]
@@ -3456,11 +3463,11 @@ locals {
         template = {
           for key, value in resource :
           key => value
-          if local.deploy_extend_vwan_bastion_network &&
+          if local.deploy_ext_vwan_bastion_network[resource.location] &&
           key != "resource_id" &&
           key != "managed_by_module"
         }
-        managed_by_module = local.deploy_extend_vwan_bastion_network
+        managed_by_module = local.deploy_ext_vwan_bastion_network[resource.location]
       }
     ]
     azurerm_ext_vwan_bastion_subnet = [
@@ -3471,14 +3478,14 @@ locals {
         template = {
           for key, value in resource :
           key => value
-          if local.deploy_extend_vwan_bastion_network &&
+          if local.deploy_ext_vwan_bastion_network[resource.location] &&
           key != "resource_id" &&
           key != "managed_by_module" &&
           key != "location" &&
           key != "network_security_group_id" &&
           key != "route_table_id"
         }
-        managed_by_module = local.deploy_extend_vwan_bastion_network
+        managed_by_module = local.deploy_ext_vwan_bastion_network[resource.location]
       }
     ]
     azurerm_ext_vwan_bastion_nsg = [
@@ -3489,11 +3496,11 @@ locals {
         template = {
           for key, value in resource :
           key => value
-          if local.deploy_extend_vwan_bastion_network &&
+          if local.deploy_ext_vwan_bastion_network[resource.location] &&
           key != "resource_id" &&
           key != "managed_by_module"
         }
-        managed_by_module = local.deploy_extend_vwan_bastion_network
+        managed_by_module = local.deploy_ext_vwan_bastion_network[resource.location]
       }
     ]
     azurerm_ext_vwan_bastion_network_security_group_association = [
@@ -3503,11 +3510,11 @@ locals {
         template = {
           for key, value in resource :
           key => value
-          if local.deploy_extend_vwan_bastion_network &&
+          if local.deploy_ext_vwan_bastion_network[resource.location] &&
           key != "resource_id" &&
           key != "managed_by_module"
         }
-        managed_by_module = local.deploy_extend_vwan_bastion_network
+        managed_by_module = local.deploy_ext_vwan_bastion_network[resource.location]
       }
     ]
     azurerm_ext_vwan_bastion_host = [
