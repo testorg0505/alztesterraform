@@ -16,7 +16,7 @@ configure_connectivity_resources = {
       {
         enabled = true
         config = {
-          address_prefix                = "10.112.32.0/22"
+          address_prefix               = "10.112.32.0/22"
           location                     = "australiaeast"
           sku            = ""
           routes         = []
@@ -59,7 +59,7 @@ configure_connectivity_resources = {
       {
         enabled = false
         config = {
-          address_prefix                = "10.112.64.0/22"
+          address_prefix               = "10.112.64.0/22"
           location                     = "australiasoutheast"
           sku            = ""
           routes         = []
@@ -178,7 +178,7 @@ configure_connectivity_resources = {
         config = {
           address_space                = ["10.112.70.0/24", ]
           location                     = "australiasoutheast"
-         sku                           = "Basic"
+          sku                          = "Basic"
           availability_zones = {
                 zone_1 = false
                 zone_2 = false

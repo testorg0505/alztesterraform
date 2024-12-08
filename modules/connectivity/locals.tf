@@ -169,21 +169,23 @@ locals {
       for location in local.ext_vwan_bastion_network_locations :
       location =>
       local.enabled &&
-      local.existing_virtual_wan_resource_group_name == local.empty_string &&
-      anytrue(concat(
-        values(local.virtual_hubs_by_location_for_managed_virtual_wan).*.enabled,
-        values(local.virtual_hubs_by_location_for_shared_resource_group).*.enabled,
-      ))
+      lookup(local.ext_vwan_bastion_networks_by_location, location, local.result_when_location_missing).enabled
+      # local.existing_virtual_wan_resource_group_name == local.empty_string &&
+      # anytrue(concat(
+      #   values(local.virtual_hubs_by_location_for_managed_virtual_wan).*.enabled,
+      #   values(local.virtual_hubs_by_location_for_shared_resource_group).*.enabled,
+      # ))
     }
     extended_vwan_dns = {
       for location in local.ext_vwan_dns_network_locations :
       location =>
       local.enabled &&
-      local.existing_virtual_wan_resource_group_name == local.empty_string &&
-      anytrue(concat(
-        values(local.virtual_hubs_by_location_for_managed_virtual_wan).*.enabled,
-        values(local.virtual_hubs_by_location_for_shared_resource_group).*.enabled,
-      ))
+      lookup(local.ext_vwan_dns_networks_by_location, location, local.result_when_location_missing).enabled
+      # local.existing_virtual_wan_resource_group_name == local.empty_string &&
+      # anytrue(concat(
+      #   values(local.virtual_hubs_by_location_for_managed_virtual_wan).*.enabled,
+      #   values(local.virtual_hubs_by_location_for_shared_resource_group).*.enabled,
+      # ))
     }
     ddos = {
       (local.ddos_location) = local.deploy_ddos_protection_plan
