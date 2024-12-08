@@ -1,0 +1,81 @@
+name: Deploy Management Groups and Policies
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        type: boolean
+        description: 'Terraform Apply'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  tf_fmt:
+    name: Deploy Archetypes
+    runs-on: ubuntu-latest
+    environment: Production
+    steps:
+
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Log in to Azure using OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.CLIENT_ID }}
+          tenant-id: ${{ vars.TENANT_ID }}
+          subscription-id: ${{ vars.CONN_SUB_ID }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Concat Vars
+        run: cat env/terraform.global.tfvars env/terraform.archetypes.tfvars > temp.tfvars && cat temp.tfvars > terraform.archetypes.tfvars
+
+      - name: Terraform init
+        id: init
+        run: terraform init
+        env:
+          ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          ARM_TENANT_ID: ${{ vars.TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ vars.CONN_SUB_ID }}
+          ARM_USE_OIDC: true
+
+      - name: Terraform validate
+        id: validate
+        run: terraform validate
+        env:
+          ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          ARM_TENANT_ID: ${{ vars.TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ vars.CONN_SUB_ID }}
+          ARM_USE_OIDC: true
+
+      - name: Terraform workspace
+        id: workspace
+        run: terraform workspace select archetypes
+        env:
+          ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          ARM_TENANT_ID: ${{ vars.TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ vars.CONN_SUB_ID }}
+          ARM_USE_OIDC: true
+
+      - name: Terraform plan
+        id: plan
+        run: terraform plan -parallelism=5 -var-file="terraform.archetypes.tfvars"
+        env:
+          ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          ARM_TENANT_ID: ${{ vars.TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ vars.CONN_SUB_ID }}
+          ARM_USE_OIDC: true
+
+      - name: Terraform apply
+        if: ${{ inputs.deploy }}
+        id: apply
+        run: terraform apply -auto-approve -parallelism=5 -var-file="terraform.archetypes.tfvars"
+        env:
+          ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          ARM_TENANT_ID: ${{ vars.TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ vars.CONN_SUB_ID }}
+          ARM_USE_OIDC: true

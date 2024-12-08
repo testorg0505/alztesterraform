@@ -1,0 +1,42 @@
+{
+  "name": "Deny-Azure-Resources",
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2022-06-01",
+  "properties": {
+    "description": "This policy denies the creation of specific Azure resources.",
+    "displayName": "Deny Azure Resources",
+    "notScopes": [],
+    "parameters": {
+      "effect": {
+        "value": "Deny"
+      },
+      "listOfResourceTypesNotAllowed": {
+        "value": [
+          "Microsoft.Network/azurefirewalls",
+          "Microsoft.Network/bastionhosts",
+          "Microsoft.Network/ddosprotectionplans",
+          "Microsoft.Network/expressroutegateways",
+          "Microsoft.Network/expressroutecircuits",
+          "Microsoft.Network/privateDnsZones",
+          "Microsoft.Network/firewallpolicies",
+          "Microsoft.Network/virtualhubs",
+          "Microsoft.Network/virtualnetworkgateways",
+          "Microsoft.Operationalinsights/workspaces"
+        ]
+      }
+    },
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6c112d4e-5bc7-47ae-a041-ea2d9dccd749",
+    "scope": "${current_scope_resource_id}",
+    "enforcementMode": "Default",
+    "nonComplianceMessages": [
+      {
+        "Message": "Deployment of this resource is not allowed within the Landing Zone.",
+        "PolicyDefinitionReferenceId": null
+      }
+    ]
+  },
+  "location": null,
+  "identity": {
+    "type": "None"
+  }
+}

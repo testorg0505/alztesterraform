@@ -1,0 +1,34 @@
+{
+  "name": "Enforce-Naming-Azure-Bastion",
+  "type": "Microsoft.Authorization/policyDefinitions",
+  "apiVersion": "2021-06-01",
+  "scope": "${current_scope_resource_id}",
+  "properties": {
+    "policyType": "Custom",
+    "mode": "All",
+    "displayName": "Enforce Naming for Azure Bastion",
+    "description": "This policy enforces naming for Azure Bastion",
+    "metadata": {
+      "version": "1.0.0",
+      "category": "Governance"
+    },
+    "parameters": {},
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Network/bastionHosts"
+          },
+          {
+            "field": "name",
+            "notLike": "bas-*"
+          }
+        ]
+      },
+      "then": {
+        "effect": "Deny"
+      }
+    }
+  }
+}

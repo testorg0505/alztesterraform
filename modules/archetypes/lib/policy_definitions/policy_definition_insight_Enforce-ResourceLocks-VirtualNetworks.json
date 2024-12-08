@@ -1,0 +1,76 @@
+{
+  "name": "Lock-Virtual-Networks",
+  "type": "Microsoft.Authorization/policyDefinitions",
+  "apiVersion": "2021-06-01",
+  "scope": "${current_scope_resource_id}",
+  "properties": {
+    "policyType": "Custom",
+    "mode": "Indexed",
+    "displayName": "Enforce resource locks for Virtual Networks",
+    "description": "This policy enforces resource locks for Virtual Networks.",
+    "metadata": {
+      "version": "1.0.0",
+      "category": "Governance"
+    },
+    "parameters": {},
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Network/virtualNetworks"
+          }
+        ]
+      },
+      "then": {
+        "effect": "deployIfNotExists",
+        "details": {
+          "type": "Microsoft.Authorization/locks",
+          "roleDefinitionIds": [
+            "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
+          ],
+          "existenceCondition": {
+            "field": "Microsoft.Authorization/locks/level",
+            "equals": "CanNotDelete"
+          },
+          "deployment": {
+            "properties": {
+              "mode": "incremental",
+              "parameters": {
+                "resourceName": {
+                  "value": "[field('name')]"
+                },
+                "resourceType": {
+                  "value": "Microsoft.Network/virtualNetworks"
+                }
+              },
+              "template": {
+                "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json",
+                "contentVersion": "1.0.0.0",
+                "parameters": {
+                  "resourceName": {
+                    "type": "string"
+                  },
+                  "resourceType": {
+                    "type": "string"
+                  }
+                },
+                "resources": [
+                  {
+                    "type": "Microsoft.Authorization/locks",
+                    "name": "setByPolicy",
+                    "apiVersion": "2017-04-01",
+                    "properties": {
+                      "level": "CanNotDelete",
+                      "notes": "Lock applied by Azure Policy"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

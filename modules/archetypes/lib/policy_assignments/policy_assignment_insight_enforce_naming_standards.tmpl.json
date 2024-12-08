@@ -1,0 +1,88 @@
+{
+  "name": "Enforce-Naming-Standards",
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2022-06-01",
+  "properties": {
+    "description": "This Policy Assignment Enforces Azure Naming Standards across Azure Resources.",
+    "displayName": "Enforce Azure Naming Standards",
+    "notScopes": [],
+    "parameters": {},
+    "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policySetDefinitions/Enforce-Naming-Standards",
+    "scope": "${current_scope_resource_id}",
+    "enforcementMode": "Default",
+    "nonComplianceMessages": [
+      {
+        "message": "Please following the Azure naming standards as outlined in the Azure DevOps Wiki.",
+        "policyDefinitionReferenceId": null
+      },
+      {
+        "message": "The naming convention for Azure Application Gateways needs to start with \"agw-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingAppGwy"
+      },
+      {
+        "message": "The naming convention for Azure Automation needs to start with \"aaa-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingAutomation"
+      },
+      {
+        "message": "The naming convention for Azure Bastion needs to start with \"bas-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingBastion"
+      },
+      {
+        "message": "The naming convention for ExpressRoute Circuit needs to start with \"erc-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingExpressRouteCircuit"
+      },
+      {
+        "message": "The naming convention for Azure Key Vault needs to start with \"akv-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingKeyVault"
+      },
+      {
+        "message": "The naming convention for Load Balancers needs to start with \"elb-\" or \"ilb-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingLoadBalancers"
+      },
+      {
+        "message": "The naming convention for Log Analytics Workspace needs to start with \"law-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingLogAnalyticsWorkspaces"
+      },
+      {
+        "message": "The naming convention for Local Network Gateways needs to start with \"lng-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingLocalNetworkGateway"
+      },
+      {
+        "message": "The naming convention for Management Groups needs to start with \"mg-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingManagementGroups"
+      },
+      {
+        "message": "The naming convention for Network Security Groups needs to start with \"nsg-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingNetworkSecurityGroup"
+      },
+      {
+        "message": "The naming convention for Public IP Addresses needs to start with \"pip-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingPublicIP"
+      },
+      {
+        "message": "The naming convention for Route Tables needs to start with \"udr-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingRouteTables"
+      },
+      {
+        "message": "The naming convention for Storage Accounts needs to start with \"sta-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingStorageAccounts"
+      },
+      {
+        "message": "The naming convention for Azure Subscriptions needs to start with \"sub-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingSubscription"
+      },
+      {
+        "message": "The naming convention for Virtual Network Gateways needs to start with \"vng-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingVirtualNetworkGateways"
+      },
+      {
+        "message": "The naming convention for Virtual Networks needs to start with \"vnt-\", please see the naming conventions in the wiki for more details.",
+        "policyDefinitionReferenceId": "EnforceNamingVirtualNetworks"
+      }
+    ]
+  },
+  "location": "${default_location}",
+  "identity": {
+    "type": "None"
+  }
+}

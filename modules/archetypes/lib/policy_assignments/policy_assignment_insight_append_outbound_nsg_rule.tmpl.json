@@ -1,0 +1,54 @@
+{
+  "name": "Append-Outbound-NSG-Rule",
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2022-06-01",
+  "properties": {
+    "description": "This policy appends a deny NSG Outbound Rule.",
+    "displayName": "Append Outbound NSG Rule",
+    "notScopes": [],
+    "parameters": {
+      "access": {
+        "value": "Deny"
+      },
+      "destinationAddressPrefix": {
+        "value": [
+          "*"
+        ]
+      },
+      "destinationPortRange": {
+        "value": [
+          "*"
+        ]
+      },
+      "direction": {
+        "value": "Outbound"
+      },
+      "name": {
+        "value": "OUTBOUND-FROM-any-TO-any-PORT-any-PROT-any-DENY"
+      },
+      "priority": {
+        "value": "4000"
+      },
+      "protocol": {
+        "value": "*"
+      },
+      "sourceAddressPrefix": {
+        "value": [
+          "*"
+        ]
+      },
+      "sourcePortRange": {
+        "value": [
+          "*"
+        ]
+      }
+    },
+    "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Append-Outbound-NSG-Rule",
+    "scope": "${current_scope_resource_id}",
+    "enforcementMode": "Default"
+  },
+  "location": "${default_location}",
+  "identity": {
+    "type": "SystemAssigned"
+  }
+}

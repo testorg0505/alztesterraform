@@ -1,0 +1,24 @@
+{
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2022-06-01",
+  "name": "Deny-VNET-Peer-Cross-Sub",
+  "dependsOn": [],
+  "properties": {
+    "description": "This policy denies the creation of vNet Peerings outside of the same subscriptions under the assigned scope.",
+    "displayName": "Deny vNet peering cross subscription",
+    "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Deny-VNET-Peer-Cross-Sub",
+    "enforcementMode": "Default",
+    "nonComplianceMessages": [
+      {
+        "message": "Vnets cannot be peered to other subscriptions."
+      }
+    ],
+    "scope": "${current_scope_resource_id}",
+    "notScopes": [],
+    "parameters": {}
+  },
+  "location": "${default_location}",
+  "identity": {
+    "type": "None"
+  }
+}

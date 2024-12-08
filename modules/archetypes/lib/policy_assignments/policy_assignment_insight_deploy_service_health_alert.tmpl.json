@@ -1,0 +1,28 @@
+{
+  "name": "Deploy-ServiceHealth",
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2022-06-01",
+  "properties": {
+    "description": "Deploy Service Health Alert for a given region, incident type and list of impacted services.",
+    "displayName": "Deploy Service Health Alert for Subscription",
+    "parameters": {
+      "actionGroupId": {
+        "value": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/alertsRG/providers/microsoft.insights/actionGroups/platMgmtActionGroup"
+      },
+      "serviceHealthAlertName": {
+        "value": "landingZoneServiceHealthAlert"
+      },
+      "serviceHealthAlertRG": {
+        "value": "alertsRG"
+      }
+    },
+    "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Deploy-ServiceHealthAlert",
+    "scope": "${current_scope_resource_id}",
+    "enforcementMode": "Default",
+    "notScopes": []
+  },
+  "location": "${default_location}",
+  "identity": {
+    "type": "SystemAssigned"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "Deploy-Flow-Logs",
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2022-06-01",
+  "properties": {
+    "description": "Configures flow log for specific network security group. It will allow to log information about IP traffic flowing through an network security group. Flow log helps to identify unknown or undesired traffic, verify network isolation and compliance with enterprise access rules, analyze network flows from compromised IPs and network interfaces.",
+    "displayName": "Deploy a NSG Flow Log to associated Network Security Groups",
+    "notScopes": [],
+    "parameters": {
+      "nsgRegion": {
+        "value": "australiaeast"
+      },
+      "storageId": {
+        "value": ""
+      },
+      "networkWatcherRG": {
+        "value": "NetworkWatcherRG"
+      },
+      "networkWatcherName": {
+        "value": "NetworkWatcher_australiaeast"
+      }
+    },
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0db34a60-64f4-4bf6-bd44-f95c16cf34b9",
+    "scope": "${current_scope_resource_id}",
+    "enforcementMode": "Default"
+  },
+  "location": "${default_location}",
+  "identity": {
+    "type": "SystemAssigned"
+  }
+}

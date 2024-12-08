@@ -1,0 +1,44 @@
+{
+  "name": "Deploy-Azure-CIS",
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2022-06-01",
+  "properties": {
+    "description": "The Center for Internet Security (CIS) is a nonprofit entity whose mission is to 'identify, develop, validate, promote, and sustain best practice solutions for cyber defense.' CIS benchmarks are configuration baselines and best practices for securely configuring a system. These policies address a subset of CIS Microsoft Azure Foundations Benchmark v1.4.0 controls. For more information, visit https://aka.ms/cisazure130-initiative",
+    "displayName": "CIS Microsoft Azure Foundations Benchmark v1.4.0",
+    "notScopes": [],
+    "parameters": {
+      "approvedExtensions-c0e996f8-39cf-4af9-9f45-83fbde810432": {
+        "value": [
+          "AzureDiskEncryption",
+          "AzureDiskEncryptionForLinux",
+          "DependencyAgentWindows",
+          "DependencyAgentLinux",
+          "IaaSAntimalware",
+          "IaaSDiagnostics",
+          "LinuxDiagnostic",
+          "MicrosoftMonitoringAgent",
+          "NetworkWatcherAgentLinux",
+          "NetworkWatcherAgentWindows",
+          "OmsAgentForLinux",
+          "VMSnapshot",
+          "VMSnapshotLinux",
+          "ConfigurationforLinux",
+          "ConfigurationforWindows",
+          "BGInfo",
+          "JsonADDomainExtension",
+          "MDE.Linux",
+          "MDE.Windows",
+          "MonitorX64Linux",
+          "MonitorX64Windows"
+        ]
+      }
+    },
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policySetDefinitions/c3f5c4d9-9a1d-4a99-85c0-7f93e384d5c5",
+    "scope": "${current_scope_resource_id}",
+    "enforcementMode": "Default"
+  },
+  "location": "${default_location}",
+  "identity": {
+    "type": "None"
+  }
+}

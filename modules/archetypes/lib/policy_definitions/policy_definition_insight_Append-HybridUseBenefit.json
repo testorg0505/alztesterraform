@@ -1,0 +1,72 @@
+{
+  "name": "Append-AzureHub",
+  "type": "Microsoft.Authorization/policyDefinitions",
+  "apiVersion": "2021-06-01",
+  "scope": "${current_scope_resource_id}",
+  "properties": {
+    "policyType": "Custom",
+    "mode": "All",
+    "displayName": "Append Azure Hybrid Use Benefits to Windows Server",
+    "description": "Append Azure Hybrid Use Benefits licensing to all Windows VMs",
+    "metadata": {
+      "version": "1.0.0",
+      "category": "Cost Management"
+    },
+    "parameters": {},
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "in": [
+              "Microsoft.Compute/virtualMachines",
+              "Microsoft.Compute/VirtualMachineScaleSets"
+            ]
+          },
+          {
+            "field": "Microsoft.Compute/imagePublisher",
+            "equals": "MicrosoftWindowsServer"
+          },
+          {
+            "field": "Microsoft.Compute/imageOffer",
+            "equals": "WindowsServer"
+          },
+          {
+            "field": "Microsoft.Compute/imageSKU",
+            "in": [
+              "2008-R2-SP1",
+              "2008-R2-SP1-smalldisk",
+              "2012-Datacenter",
+              "2012-Datacenter-smalldisk",
+              "2012-R2-Datacenter",
+              "2012-R2-Datacenter-smalldisk",
+              "2016-Datacenter",
+              "2016-Datacenter-Server-Core",
+              "2016-Datacenter-Server-Core-smalldisk",
+              "2016-Datacenter-smalldisk",
+              "2016-Datacenter-with-Containers",
+              "2016-Datacenter-with-RDSH",
+              "2019-Datacenter",
+              "2022-datacenter-g2",
+              "2022-datacenter-smalldisk",
+              "2022-datacenter-smalldisk-g2"
+            ]
+          },
+          {
+            "field": "Microsoft.Compute/licenseType",
+            "notEquals": "Windows_Server"
+          }
+        ]
+      },
+      "then": {
+        "effect": "append",
+        "details": [
+          {
+            "field": "Microsoft.Compute/licenseType",
+            "value": "Windows_Server"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "Enforce-Naming-Load-Balancers",
+  "type": "Microsoft.Authorization/policyDefinitions",
+  "apiVersion": "2021-06-01",
+  "scope": "${current_scope_resource_id}",
+  "properties": {
+    "policyType": "Custom",
+    "mode": "All",
+    "displayName": "Enforce Naming for Load Balancers",
+    "description": "This policy enforces naming for Load Balancers",
+    "metadata": {
+      "version": "1.0.0",
+      "category": "Governance"
+    },
+    "parameters": {},
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Network/loadBalancers"
+          },
+          {
+            "field": "name",
+            "notLike": "ilb-*"
+          },
+          {
+            "field": "name",
+            "notLike": "elb-*"
+          }
+        ]
+      },
+      "then": {
+        "effect": "Deny"
+      }
+    }
+  }
+}

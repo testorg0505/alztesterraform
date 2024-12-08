@@ -1,0 +1,84 @@
+{
+  "name": "Enforce-Resource-Locks",
+  "type": "Microsoft.Authorization/policySetDefinitions",
+  "apiVersion": "2021-06-01",
+  "scope": "${current_scope_resource_id}",
+  "properties": {
+    "policyType": "Custom",
+    "displayName": "Enforce Azure Resource Locks",
+    "description": "This policy initiative deploys Resource Locks to identified Azure Resources.",
+    "metadata": {
+      "version": "1.0.0",
+      "category": "Governance"
+    },
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "lockAutomationAccounts",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Lock-Automation-Accounts",
+        "groupNames": []
+      },
+      {
+        "policyDefinitionReferenceId": "lockAzureBastion",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Lock-Azure-Bastion",
+        "groupNames": []
+      },
+      {
+        "policyDefinitionReferenceId": "lockAzureFirewall",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Lock-Azure-Firewall",
+        "groupNames": []
+      },
+      {
+        "policyDefinitionReferenceId": "lockConnections",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Lock-Connections",
+        "groupNames": []
+      },
+      {
+        "policyDefinitionReferenceId": "lockExpressRouteCircuit",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Lock-ExpressRoute-Circuits",
+        "groupNames": []
+      },
+      {
+        "policyDefinitionReferenceId": "lockExpressRouteGateway",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Lock-ExpressRoute-Gateways",
+        "groupNames": []
+      },
+      {
+        "policyDefinitionReferenceId": "lockLocalNetworkGateway",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Lock-Local-Network-Gateways",
+        "groupNames": []
+      },
+      {
+        "policyDefinitionReferenceId": "lockNetworkSecurityGroup",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Lock-Network-Security-Groups",
+        "groupNames": []
+      },
+      {
+        "policyDefinitionReferenceId": "lockNetworkWatchers",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Lock-Network-Watchers",
+        "groupNames": []
+      },
+      {
+        "policyDefinitionReferenceId": "lockPublicIpAddresses",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Lock-Public-IP-Addresses",
+        "groupNames": []
+      },
+      {
+        "policyDefinitionReferenceId": "lockRouteTables",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Lock-Route-Tables",
+        "groupNames": []
+      },
+      {
+        "policyDefinitionReferenceId": "lockVirtualNetworkGateway",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Lock-Virtual-Network-Gateways",
+        "groupNames": []
+      },
+      {
+        "policyDefinitionReferenceId": "lockVirtualNetworks",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Lock-Virtual-Networks",
+        "groupNames": []
+      }
+    ],
+    "policyDefinitionGroups": []
+  }
+}

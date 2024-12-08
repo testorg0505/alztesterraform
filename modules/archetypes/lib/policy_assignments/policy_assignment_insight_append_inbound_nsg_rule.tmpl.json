@@ -1,0 +1,54 @@
+{
+  "name": "Append-Inbound-NSG-Rule",
+  "type": "Microsoft.Authorization/policyAssignments",
+  "apiVersion": "2022-06-01",
+  "properties": {
+    "description": "This policy appends a deny NSG Inbound Rule.",
+    "displayName": "Append Inbound NSG Rule",
+    "notScopes": [],
+    "parameters": {
+      "access": {
+        "value": "Deny"
+      },
+      "destinationAddressPrefix": {
+        "value": [
+          "*"
+        ]
+      },
+      "destinationPortRange": {
+        "value": [
+          "*"
+        ]
+      },
+      "direction": {
+        "value": "Inbound"
+      },
+      "name": {
+        "value": "INBOUND-FROM-any-TO-any-PORT-any-PROT-any-DENY"
+      },
+      "priority": {
+        "value": "4000"
+      },
+      "protocol": {
+        "value": "*"
+      },
+      "sourceAddressPrefix": {
+        "value": [
+          "*"
+        ]
+      },
+      "sourcePortRange": {
+        "value": [
+          "*"
+        ]
+      }
+    },
+    "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Append-Inbound-NSG-Rule",
+    "scope": "${current_scope_resource_id}",
+    "enforcementMode": "Default"
+  },
+  "location": "${default_location}",
+  "identity": {
+    "type": "SystemAssigned"
+  }
+}

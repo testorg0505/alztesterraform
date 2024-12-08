@@ -1,0 +1,201 @@
+{
+  "name": "Enforce-Guardrails-Governance",
+  "type": "Microsoft.Authorization/policySetDefinitions",
+  "apiVersion": "2021-06-01",
+  "scope": "${current_scope_resource_id}",
+  "properties": {
+    "policyType": "Custom",
+    "displayName": "Enforce recommended guardrails for Azure Governance",
+    "description": "Azure Governance Baseline for Tagging, Hybrid Use Benefits and other governance constructs.",
+    "metadata": {
+      "version": "1.0.0",
+      "category": "Governance"
+    },
+    "parameters": {},
+    "policyDefinitions": [
+      {
+        "policyDefinitionReferenceId": "appendAzureHub",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Append-AzureHub",
+        "parameters": {},
+        "groupNames": []
+      },
+      {
+        "policyDefinitionReferenceId": "appendCreatedDate",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Append-CreatedDate-Tag",
+        "parameters": {},
+        "groupNames": []
+      },
+      {
+        "policyDefinitionReferenceId": "allowedAzureRegions",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e56962a6-4747-49cd-b67b-bf8b01975c4c",
+        "parameters": {
+          "listOfAllowedLocations": {
+            "value": [
+              "australiaeast",
+              "australiasoutheast"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "allowedAzureRegionsRg",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/e765b5de-1225-4ba3-bd56-1ac6695af988",
+        "parameters": {
+          "listOfAllowedLocations": {
+            "value": [
+              "australiaeast",
+              "australiasoutheast"
+            ]
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "inheritENVTag",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/40df99da-1232-49b1-a39a-6da8d878f469",
+        "parameters": {
+          "tagName": {
+            "value": "environment"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "enforceENVTag",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Enforce-Subscription-Tag",
+        "parameters": {
+          "tagName": {
+            "value": "environment"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "inheritAppName",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/40df99da-1232-49b1-a39a-6da8d878f469",
+        "parameters": {
+          "tagName": {
+            "value": "applicationName"
+          }
+        }
+      },
+
+      {
+        "policyDefinitionReferenceId": "enforceAppName",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Enforce-Subscription-Tag",
+        "parameters": {
+          "tagName": {
+            "value": "applicationName"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "inheritContactEmail",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/40df99da-1232-49b1-a39a-6da8d878f469",
+        "parameters": {
+          "tagName": {
+            "value": "contactEmail"
+          }
+        }
+      },
+
+      {
+        "policyDefinitionReferenceId": "enforceContactEmail",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Enforce-Subscription-Tag",
+        "parameters": {
+          "tagName": {
+            "value": "contactEmail"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "inheritCostCenter",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/40df99da-1232-49b1-a39a-6da8d878f469",
+        "parameters": {
+          "tagName": {
+            "value": "costCenter"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "enforceCostCenter",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Enforce-Subscription-Tag",
+        "parameters": {
+          "tagName": {
+            "value": "costCenter"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "inheritCeatedDate",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/40df99da-1232-49b1-a39a-6da8d878f469",
+        "parameters": {
+          "tagName": {
+            "value": "CreatedDate"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "enforceCreatedDate",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Enforce-Subscription-Tag",
+        "parameters": {
+          "tagName": {
+            "value": "CreatedDate"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "inheritCriticality",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/40df99da-1232-49b1-a39a-6da8d878f469",
+        "parameters": {
+          "tagName": {
+            "value": "criticality"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "enforceCriticality",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Enforce-Subscription-Tag",
+        "parameters": {
+          "tagName": {
+            "value": "criticality"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "inheritDataClassification",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/40df99da-1232-49b1-a39a-6da8d878f469",
+        "parameters": {
+          "tagName": {
+            "value": "dataClassification"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "enforceClassification",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Enforce-Subscription-Tag",
+        "parameters": {
+          "tagName": {
+            "value": "dataClassification"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "inheritOwner",
+        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/40df99da-1232-49b1-a39a-6da8d878f469",
+        "parameters": {
+          "tagName": {
+            "value": "owner"
+          }
+        }
+      },
+      {
+        "policyDefinitionReferenceId": "enforceOwner",
+        "policyDefinitionId": "${root_scope_resource_id}/providers/Microsoft.Authorization/policyDefinitions/Enforce-Subscription-Tag",
+        "parameters": {
+          "tagName": {
+            "value": "owner"
+          }
+        }
+      }
+    ],
+    "policyDefinitionGroups": null
+  }
+}

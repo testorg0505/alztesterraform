@@ -1,0 +1,29 @@
+{
+  "es_landing_zones": {
+    "policy_assignments": [
+      "Audit-AppGW-WAF",
+      "Deny-IP-forwarding",
+      "Deny-MgmtPorts-Internet",
+      "Deny-Privileged-AKS",
+      "Deny-Priv-Esc-AKS",
+      "Deploy-AKS-Policy",
+      "Deploy-AzSqlDb-Auditing",
+      "Deploy-VM-Backup",
+      "Enable-DDoS-VNET",
+      "Enforce-AKS-HTTPS",
+      "Enforce-GR-KeyVault",
+      "Deny-RDP-From-Internet",
+      "Deny-Storage-http",
+      "Deploy-SQL-DB-Auditing",
+      "Deploy-SQL-Threat",
+      "Enforce-TLS-SSL"
+    ],
+    "policy_definitions": [],
+    "policy_set_definitions": [],
+    "role_definitions": [],
+    "archetype_config": {
+      "parameters": {},
+      "access_control": {}
+    }
+  }
+}
