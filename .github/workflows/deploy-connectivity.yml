@@ -54,11 +54,13 @@ jobs:
 
       - name: Terraform workspace
         id: workspace
-        run: terraform workspace select connectivity
+        run: |
+          workspace_name="connectivity"
+          terraform workspace select ${workspace_name} || (echo "workspace doesn't exist. Creating.." && terraform workspace new ${workspace_name})
         env:
           ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          ARM_TENANT_ID: ${{ vars.TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ vars.CONN_SUB_ID }}
+          ARM_TENANT_ID:  ${{ vars.TENANT_ID }}
+          ARM_SUBSCRIPTION_ID:  ${{ vars.CONN_SUB_ID }}
           ARM_USE_OIDC: true
 
       - name: Terraform plan
