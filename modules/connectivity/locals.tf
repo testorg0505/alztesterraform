@@ -1910,12 +1910,12 @@ locals {
         name                = local.express_route_circuit_name[location]
         resource_group_name = local.virtual_hub_resource_group_name[location]
         location            = location
-        service_provider_name = virtual_hub.config.expressroute_gateway.config.service_provider_name
-        peering_location     = virtual_hub.config.expressroute_gateway.config.peering_location
-        bandwidth_in_mbps    = virtual_hub.config.expressroute_gateway.config.bandwidth_in_mbps
+        service_provider_name = virtual_hub.config.expressroute_circuit.config.service_provider_name
+        peering_location     = virtual_hub.config.expressroute_circuit.config.peering_location
+        bandwidth_in_mbps    = virtual_hub.config.expressroute_circuit.config.bandwidth_in_mbps
         sku = {
-          tier   = virtual_hub.config.expressroute_gateway.config.sku_tier
-          family = virtual_hub.config.expressroute_gateway.config.sku_family
+          tier   = virtual_hub.config.expressroute_circuit.config.sku_tier
+          family = virtual_hub.config.expressroute_circuit.config.sku_family
         }
         # Optional definition attributes
         tags = try(local.custom_settings.azurerm_express_route_circuit["virtual_wan"][location].tags, local.tags)
