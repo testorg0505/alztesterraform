@@ -195,6 +195,7 @@ resource "azurerm_public_ip" "connectivity" {
   # Set explicit dependencies
   depends_on = [
     azurerm_resource_group.connectivity,
+    azurerm_resource_group.extended_vwan,
   ]
 
 }
