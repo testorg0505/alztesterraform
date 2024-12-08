@@ -2562,6 +2562,7 @@ locals {
       # Resource logic attributes
       network_security_group_id   = subnet.network_security_group_id
       subnet_id                   = subnet.resource_id
+      location                    = try(subnet.location,local.location)
     }
   ]
 }
