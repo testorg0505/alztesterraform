@@ -94,6 +94,35 @@ resource "azurerm_express_route_gateway" "virtual_wan" {
 
 }
 
+resource "azurerm_express_route_circuit" "virtual_wan" {
+  for_each = local.azurerm_express_route_circuit_virtual_wan
+
+  provider = azurerm.connectivity
+
+  # Mandatory resource attributes
+  name                = each.value.template.name
+  resource_group_name = each.value.template.resource_group_name
+  location            = each.value.template.location
+  sku {
+    tier     = each.value.template.sku_tier
+    family   = each.value.template.sku_family
+  }
+  service_provider_name = each.value.template.service_provider_name
+  peering_location     = each.value.template.peering_location
+  bandwidth_in_mbps    = each.value.template.bandwidth_in_mbps
+
+  # Optional resource attributes
+  tags = each.value.template.tags
+
+  # Set explicit dependencies
+  depends_on = [
+    azurerm_resource_group.connectivity,
+    azurerm_resource_group.virtual_wan,
+    azurerm_virtual_wan.virtual_wan,
+    azurerm_virtual_hub.virtual_wan,
+  ]
+}
+
 resource "azurerm_vpn_gateway" "virtual_wan" {
   for_each = local.azurerm_vpn_gateway_virtual_wan
 

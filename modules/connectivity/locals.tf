@@ -327,6 +327,12 @@ locals {
     local.deploy_virtual_hub[location] &&
     virtual_hub.config.expressroute_gateway.enabled
   }
+  deploy_virtual_hub_express_route_circuit = {
+    for location, virtual_hub in local.virtual_hubs_by_location :
+    location =>
+    local.deploy_virtual_hub[location] &&
+    virtual_hub.config.expressroute_circuit.enabled
+  }
   deploy_virtual_hub_vpn_gateway = {
     for location, virtual_hub in local.virtual_hubs_by_location :
     location =>
@@ -1872,7 +1878,51 @@ locals {
       tags = try(local.custom_settings.azurerm_express_route_gateway["virtual_wan"][location].tags, local.tags)
     }
   ]
+
 }
+
+# Configuration settings for resource type:
+  #  - azurerm_express_route_circuit
+  locals {
+    express_route_circuit_name = {
+      for location in local.virtual_hub_locations :
+      location =>
+      try(local.custom_settings.azurerm_express_route_circuit["virtual_wan"][location].name,
+      "${local.resource_type_names.express_route_circuit}-${lookup(local.custom_azure_backup_geo_codes, location, location)}-${local.resource_prefix}-${local.resource_type_names.vwan_hub}-01${local.resource_suffix}")
+    }
+    express_route_circuit_resource_id_prefix = {
+      for location in local.virtual_hub_locations :
+      location =>
+      "${local.virtual_hub_resource_group_id[location]}/providers/Microsoft.Network/expressRouteCircuits"
+    }
+    express_route_circuit_resource_id = {
+      for location in local.virtual_hub_locations :
+      location =>
+      "${local.express_route_circuit_resource_id_prefix[location]}/${local.express_route_circuit_name[location]}"
+    }
+    azurerm_express_route_circuit = [
+      for location, virtual_hub in local.virtual_hubs_by_location :
+      {
+        # Resource logic attributes
+        resource_id       = local.express_route_circuit_resource_id[location]
+        managed_by_module = local.deploy_virtual_hub_express_route_circuit[location]
+        # Resource definition attributes
+        name                = local.express_route_circuit_name[location]
+        resource_group_name = local.virtual_hub_resource_group_name[location]
+        location            = location
+        service_provider_name = virtual_hub.config.expressroute_gateway.config.service_provider_name
+        peering_location     = virtual_hub.config.expressroute_gateway.config.peering_location
+        bandwidth_in_mbps    = virtual_hub.config.expressroute_gateway.config.bandwidth_in_mbps
+        sku = {
+          tier   = virtual_hub.config.expressroute_gateway.config.sku_tier
+          family = virtual_hub.config.expressroute_gateway.config.sku_family
+        }
+        # Optional definition attributes
+        tags = try(local.custom_settings.azurerm_express_route_circuit["virtual_wan"][location].tags, local.tags)
+      }
+    ]
+  }
+
 
 # Configuration settings for resource type:
 #  - azurerm_vpn_gateway
@@ -3322,6 +3372,21 @@ locals {
     ]
     azurerm_express_route_gateway = [
       for resource in local.azurerm_express_route_gateway :
+      {
+        resource_id   = resource.resource_id
+        resource_name = resource.name
+        template = {
+          for key, value in resource :
+          key => value
+          if resource.managed_by_module &&
+          key != "resource_id" &&
+          key != "managed_by_module"
+        }
+        managed_by_module = resource.managed_by_module
+      }
+    ]
+    azurerm_express_route_circuit = [
+      for resource in local.azurerm_express_route_circuit :
       {
         resource_id   = resource.resource_id
         resource_name = resource.name

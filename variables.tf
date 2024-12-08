@@ -649,6 +649,15 @@ variable "configure_connectivity_resources" {
                 scale_unit = optional(number, 1)
               }), {})
             }), {})
+            expressroute_circuit = optional(object({
+              enabled = optional(bool, false)
+              config = optional(object({
+                bandwidth_in_mbps = optional(number, 50)
+                peering_location  = optional(string, "")
+                service_provider  = optional(string, "")
+                sku               = optional(string, "")
+              }), {})
+            }), {})
             vpn_gateway = optional(object({
               enabled = optional(bool, false)
               config = optional(object({

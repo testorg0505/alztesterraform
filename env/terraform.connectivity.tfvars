@@ -26,6 +26,16 @@ configure_connectivity_resources = {
                 scale_unit = 1
               }
             }
+          expressroute_circuits = {
+            enabled = true
+            config = {
+              bandwidth_in_mbps = 50
+              peering_location   = "Sydney"
+              service_provider   = "Equinix"
+              sku_tier          = "Standard"
+              sku_family        = "MeteredData"
+            }
+          }
           vpn_gateway = {
             enabled = false
             config = {
