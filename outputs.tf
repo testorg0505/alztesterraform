@@ -252,6 +252,7 @@ output "azurerm_express_route_circuit" {
     virtual_wan = azurerm_express_route_circuit.virtual_wan
   }
   description = "Returns the configuration data for all (Virtual WAN) ExpressRoute Circuits created by this module."
+  sensitive   = true
 }
 
 # The following output is used to ensure all VPN
