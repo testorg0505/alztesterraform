@@ -30,13 +30,13 @@ terraform {
 
   required_version = ">= 1.3.1"
 
-  # backend "azurerm" {
-  #   resource_group_name  = "terraform-state-arg"
-  #   storage_account_name = "tfstate3839"
-  #   container_name       = "tfstatecontainer"
-  #   key                  = "terraform.tfstate"
-  #   subscription_id      = "4f747eb9-ea78-44ce-ac5a-f4dc4085645a"
-  # }
+  backend "azurerm" {
+    resource_group_name  = "terraform-state-arg"
+    storage_account_name = "tfstate3839"
+    container_name       = "tfstatecontainer"
+    key                  = "terraform.tfstate"
+    subscription_id      = "4f747eb9-ea78-44ce-ac5a-f4dc4085645a"
+  }
 }
 
 provider "azurerm" {
