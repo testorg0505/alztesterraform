@@ -26,7 +26,7 @@ configure_connectivity_resources = {
                 scale_unit = 1
               }
             }
-          expressroute_circuits = {
+          expressroute_circuit = {
             enabled = true
             config = {
               bandwidth_in_mbps = 50
