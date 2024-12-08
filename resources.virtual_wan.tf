@@ -107,7 +107,7 @@ resource "azurerm_express_route_circuit" "virtual_wan" {
     tier     = each.value.template.sku_tier
     family   = each.value.template.sku_family
   }
-  service_provider_name = each.value.template.service_provider_name
+  service_provider_name = each.value.template.service_provider
   peering_location     = each.value.template.peering_location
   bandwidth_in_mbps    = each.value.template.bandwidth_in_mbps
 

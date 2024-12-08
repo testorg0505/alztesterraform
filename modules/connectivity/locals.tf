@@ -1910,7 +1910,7 @@ locals {
         name                = local.express_route_circuit_name[location]
         resource_group_name = local.virtual_hub_resource_group_name[location]
         location            = location
-        service_provider_name = virtual_hub.config.expressroute_circuit.config.service_provider_name
+        service_provider    = virtual_hub.config.expressroute_circuit.config.service_provider
         peering_location     = virtual_hub.config.expressroute_circuit.config.peering_location
         bandwidth_in_mbps    = virtual_hub.config.expressroute_circuit.config.bandwidth_in_mbps
         sku = {

@@ -289,7 +289,8 @@ variable "settings" {
               bandwidth_in_mbps = optional(number, 50)
               peering_location  = optional(string, "")
               service_provider  = optional(string, "")
-              sku               = optional(string, "")
+              sku_tier               = optional(string, "")
+              sku_family        = optional(string, "")
             }), {})
           }), {})
           vpn_gateway = optional(object({
