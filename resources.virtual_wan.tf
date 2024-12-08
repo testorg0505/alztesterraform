@@ -104,8 +104,8 @@ resource "azurerm_express_route_circuit" "virtual_wan" {
   resource_group_name = each.value.template.resource_group_name
   location            = each.value.template.location
   sku {
-    tier     = each.value.template.sku_tier
-    family   = each.value.template.sku_family
+    tier     = each.value.template.sku.tier
+    family   = each.value.template.sku.family
   }
   service_provider_name = each.value.template.service_provider
   peering_location     = each.value.template.peering_location
