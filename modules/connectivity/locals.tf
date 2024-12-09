@@ -3435,7 +3435,6 @@ locals {
       for resource in local.azurerm_express_route_circuit_peering :
       {
         resource_id   = resource.resource_id
-        resource_name = resource.name
         template = {
           for key, value in resource :
           key => value
