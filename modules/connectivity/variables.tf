@@ -293,6 +293,17 @@ variable "settings" {
               sku_family        = optional(string, "")
             }), {})
           }), {})
+          expressroute_circuit_peering = optional(object({
+              enabled = optional(bool, false)
+              config = optional(object({
+                peering_type = optional(string, "")
+                peer_asn = optional(number, 0)
+                primary_peer_address_prefix = optional(string, "")
+                secondary_peer_address_prefix = optional(string, "")
+                vlan_id = optional(number, 0)
+                shared_key = optional(string, "")
+              }), {})
+            }), {})
           vpn_gateway = optional(object({
             enabled = optional(bool, false)
             config = optional(object({

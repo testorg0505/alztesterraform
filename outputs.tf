@@ -255,6 +255,15 @@ output "azurerm_express_route_circuit" {
   sensitive   = true
 }
 
+# The following output is used to ensure all ExpressRoute
+# Circuit Peering data is returned to the root module.
+output "azurerm_express_route_circuit_peering" {
+  value = {
+    virtual_wan = azurerm_express_route_circuit_peering.virtual_wan
+  }
+  description = "Returns the configuration data for all (Virtual WAN) ExpressRoute Circuit Peerings created by this module."
+}
+
 # The following output is used to ensure all VPN
 # Gateway data is returned to the root module.
 output "azurerm_vpn_gateway" {

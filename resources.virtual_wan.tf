@@ -122,6 +122,24 @@ resource "azurerm_express_route_circuit" "virtual_wan" {
   ]
 }
 
+resource "azurerm_express_route_circuit_peering" "virtual_wan" {
+  for_each = local.azurerm_express_route_circuit_peering_virtual_wan
+
+  provider = azurerm.connectivity
+
+  # Mandatory resource attributes
+  express_route_circuit_name = each.value.template.express_route_circuit_name
+  resource_group_name         = each.value.template.resource_group_name
+  peering_type                = each.value.template.peering_type
+  peer_asn                    = each.value.template.peer_asn
+  primary_peer_address_prefix = each.value.template.primary_peer_address_prefix
+  secondary_peer_address_prefix = each.value.template.secondary_peer_address_prefix
+
+  # Optional resource attributes
+  vlan_id = each.value.template.vlan_id
+  shared_key = each.value.template.shared_key
+}
+
 resource "azurerm_vpn_gateway" "virtual_wan" {
   for_each = local.azurerm_vpn_gateway_virtual_wan
 

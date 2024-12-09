@@ -333,6 +333,12 @@ locals {
     local.deploy_virtual_hub[location] &&
     virtual_hub.config.expressroute_circuit.enabled
   }
+  deploy_virtual_hub_express_route_circuit_peering = {
+    for location, virtual_hub in local.virtual_hubs_by_location :
+    location =>
+    local.deploy_virtual_hub[location] &&
+    virtual_hub.config.expressroute_circuit_peering.enabled
+  }
   deploy_virtual_hub_vpn_gateway = {
     for location, virtual_hub in local.virtual_hubs_by_location :
     location =>
@@ -1923,6 +1929,31 @@ locals {
     ]
   }
 
+# Configuration settings for resource type:
+#  - azurerm_express_route_circuit_peering
+locals {
+  azurerm_express_route_circuit_peering = [
+    for location, virtual_hub in local.virtual_hubs_by_location :
+    {
+      # Resource logic attributes
+      resource_id       = "${local.express_route_circuit_resource_id[location]}/peerings/AzurePrivatePeering"
+      managed_by_module = local.deploy_virtual_hub_express_route_circuit_peering[location]
+      # Resource definition attributes
+      express_route_circuit_name = local.express_route_circuit_name[location]
+      resource_group_name        = local.virtual_hub_resource_group_name[location]
+      location                   = location
+      peering_type               = "AzurePrivatePeering"
+      peer_asn                   = virtual_hub.config.expressroute_circuit.config.peer_asn
+      primary_peer_address_prefix = virtual_hub.config.expressroute_circuit.config.primary_peer_address_prefix
+      secondary_peer_address_prefix = virtual_hub.config.expressroute_circuit.config.secondary_peer_address_prefix
+      vlan_id                     = virtual_hub.config.expressroute_circuit.config.vlan_id
+      # Optional definition attributes
+      shared_key = try(local.custom_settings.azurerm_express_route_circuit_peering["virtual_wan"][location].shared_key, null)
+      tags       = try(local.custom_settings.azurerm_express_route_circuit_peering["virtual_wan"][location].tags, local.tags)
+    }
+  ]
+}
+
 
 # Configuration settings for resource type:
 #  - azurerm_vpn_gateway
@@ -3398,6 +3429,21 @@ locals {
           key != "managed_by_module"
         }
         managed_by_module = local.deploy_virtual_hub_express_route_circuit[resource.location]
+      }
+    ]
+    azurerm_express_route_circuit_peering = [
+      for resource in local.azurerm_express_route_circuit_peering :
+      {
+        resource_id   = resource.resource_id
+        resource_name = resource.name
+        template = {
+          for key, value in resource :
+          key => value
+          if local.deploy_virtual_hub_express_route_circuit_peering[resource.location] &&
+          key != "resource_id" &&
+          key != "managed_by_module"
+        }
+        managed_by_module = local.deploy_virtual_hub_express_route_circuit_peering[resource.location]
       }
     ]
     azurerm_vpn_gateway = [

@@ -36,6 +36,17 @@ configure_connectivity_resources = {
               sku_family        = "MeteredData"
             }
           }
+          expressroute_circuit_peering = {
+            enabled = true
+            config = {
+              peering_type = "AzurePrivatePeering"
+              primary_peer_address_prefix = "10.0.1.0/30"
+              secondary_peer_address_prefix = "10.0.2.0/30"
+              peer_asn = 65000
+              vlan_id = 0
+              shared_key = ""
+            }
+          }
           vpn_gateway = {
             enabled = false
             config = {

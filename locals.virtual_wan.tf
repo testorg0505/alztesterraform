@@ -50,6 +50,16 @@ locals {
 }
 
 # The following locals are used to build the map of Azure
+# Expressroute Circuit Peerings to deploy.
+locals {
+  azurerm_express_route_circuit_peering_virtual_wan = {
+    for resource in module.connectivity_resources.configuration.azurerm_express_route_circuit_peering :
+    resource.resource_id => resource
+    if resource.managed_by_module
+  }
+}
+
+# The following locals are used to build the map of Azure
 # VPN Gateways to deploy.
 locals {
   azurerm_vpn_gateway_virtual_wan = {
