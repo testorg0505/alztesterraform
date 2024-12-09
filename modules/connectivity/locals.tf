@@ -1943,10 +1943,10 @@ locals {
       resource_group_name        = local.virtual_hub_resource_group_name[location]
       location                   = location
       peering_type               = "AzurePrivatePeering"
-      peer_asn                   = virtual_hub.config.expressroute_circuit.config.peer_asn
-      primary_peer_address_prefix = virtual_hub.config.expressroute_circuit.config.primary_peer_address_prefix
-      secondary_peer_address_prefix = virtual_hub.config.expressroute_circuit.config.secondary_peer_address_prefix
-      vlan_id                     = virtual_hub.config.expressroute_circuit.config.vlan_id
+      peer_asn                   = virtual_hub.config.expressroute_circuit_peering.config.peer_asn
+      primary_peer_address_prefix = virtual_hub.config.expressroute_circuit_peering.config.primary_peer_address_prefix
+      secondary_peer_address_prefix = virtual_hub.config.expressroute_circuit_peering.config.secondary_peer_address_prefix
+      vlan_id                     = virtual_hub.config.expressroute_circuit_peering.config.vlan_id
       # Optional definition attributes
       shared_key = try(local.custom_settings.azurerm_express_route_circuit_peering["virtual_wan"][location].shared_key, null)
       tags       = try(local.custom_settings.azurerm_express_route_circuit_peering["virtual_wan"][location].tags, local.tags)
