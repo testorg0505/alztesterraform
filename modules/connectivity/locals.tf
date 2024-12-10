@@ -2507,11 +2507,23 @@ locals {
 # Configuration settings for resource type:
 #  - azurerm_virtual_hub_connection
 locals {
+  # Define the bastion network resource ID list conditionally
+  bastion_network_resource_ids = local.deploy_ext_vwan_bastion_network ? [
+    for location, ext_hub_config in local.ext_vwan_bastion_networks_by_location :
+    local.ext_vwan_bastion_network_resource_id[location]
+  ] : []
+
+  # Define the DNS network resource ID list conditionally
+  dns_network_resource_ids = local.deploy_ext_vwan_dns_network ? [
+    for location, ext_hub_config in local.ext_vwan_dns_networks_by_location :
+    local.ext_vwan_dns_network_resource_id[location]
+  ] : []
+
   azurerm_virtual_hub_connection = flatten(
     [
       for location, virtual_hub_config in local.virtual_hubs_by_location :
       [
-        for spoke_resource_id in distinct(concat(virtual_hub_config.config.spoke_virtual_network_resource_ids, virtual_hub_config.config.secure_spoke_virtual_network_resource_ids, [local.ext_vwan_bastion_network_resource_id[location]], [local.ext_vwan_dns_network_resource_id[location]])) :
+        for spoke_resource_id in distinct(concat(virtual_hub_config.config.spoke_virtual_network_resource_ids, virtual_hub_config.config.secure_spoke_virtual_network_resource_ids, bastion_network_resource_ids,  dns_network_resource_ids)) :
         {
           # Resource logic attributes
           resource_id       = "${local.virtual_hub_resource_id[location]}/hubVirtualNetworkConnections/peering-${uuidv5("url", spoke_resource_id)}"
