@@ -2523,7 +2523,7 @@ locals {
     [
       for location, virtual_hub_config in local.virtual_hubs_by_location :
       [
-        for spoke_resource_id in distinct(concat(virtual_hub_config.config.spoke_virtual_network_resource_ids, virtual_hub_config.config.secure_spoke_virtual_network_resource_ids, bastion_network_resource_ids,  dns_network_resource_ids)) :
+        for spoke_resource_id in distinct(concat(virtual_hub_config.config.spoke_virtual_network_resource_ids, virtual_hub_config.config.secure_spoke_virtual_network_resource_ids, local.bastion_network_resource_ids,  local.dns_network_resource_ids)) :
         {
           # Resource logic attributes
           resource_id       = "${local.virtual_hub_resource_id[location]}/hubVirtualNetworkConnections/peering-${uuidv5("url", spoke_resource_id)}"
