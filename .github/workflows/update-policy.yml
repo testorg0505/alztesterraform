@@ -7,6 +7,12 @@ on:
 #  schedule:
 #    - cron: "0 8 * * 1-5"
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
+  
 env:
   remote_repository: "Azure/Enterprise-Scale"
   branch_name: "patch-library"
@@ -33,11 +39,11 @@ jobs:
           path: ${{ env.remote_repository }}
           ref: main
 
-      - uses: tibdex/github-app-token@v1
-        id: generate-token
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+      # - uses: tibdex/github-app-token@v1
+      #   id: generate-token
+      #   with:
+      #     app_id: ${{ secrets.APP_ID }}
+      #     private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Configure local git
         run: |
@@ -60,7 +66,8 @@ jobs:
           fi
         working-directory: ${{ github.repository }}
         env:
-          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+          # GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update library templates
         uses: azure/powershell@v2
@@ -125,4 +132,4 @@ jobs:
           fi
         working-directory: ${{ github.repository }}
         env:
-          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
