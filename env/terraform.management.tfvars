@@ -72,7 +72,7 @@ configure_management_resources = {
                   destination_port_range     = "*"
                   destination_port_ranges    = []
                   source_address_prefix      = ""
-                  source_address_prefixes    = ["10.120.16.0/24" ] //  Platform Management Subnet Range 
+                  source_address_prefixes    = ["10.120.16.0/24"] //  Platform Management Subnet Range 
                   destination_address_prefix = "10.112.16.0/24" // Platform Management Subnet Range 
                 },                
                 {
