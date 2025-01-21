@@ -46,52 +46,10 @@ configure_management_resources = {
               address_prefixes              = ["10.112.16.0/24"]
               bgp_route_propagation_enabled = false
               routes = []
-              rules = [ //to be reviewed later
-                # {
-                #   name                       = "INBOUND-FROM-onPremisesADDS-TO-subnet-PORT-adServices-PROT-any-ALLOW" //'Inbound rules from on-premises ADDS servers to the subnet for the required ports and protocols'
-                #   priority                   = 500
-                #   direction                  = "Inbound"
-                #   access                     = "Allow"
-                #   protocol                   = "*"
-                #   source_port_range          = "*"
-                #   source_port_ranges         = []
-                #   destination_port_range     = ""
-                #   destination_port_ranges    = ["53", "88", "135", "389", "445", "464", "636", "3268-3269", "9389", "49152-65535"]
-                #   source_address_prefix      = ""
-                #   source_address_prefixes    = [""] ////On-Premises Active Directory Services IPs. Replace it with actual ranges
-                #   destination_address_prefix = "10.112.0.0/24" // Platform Identity ADDS Subnet Range.
-                # },
-                # {
-                #   name                       = "INBOUND-FROM-onPremisesCorpNetworks-TO-adds-PORT-aadServices-PROT-any-ALLOW" //' 'Allow on-premises corp virtual networks traffic to adds subnet on adservices ports''
-                #   priority                   = 501
-                #   direction                  = "Inbound"
-                #   access                     = "Allow"
-                #   protocol                   = "*"
-                #   source_port_range          = "*"
-                #   source_port_ranges         = []
-                #   destination_port_range     = ""
-                #   destination_port_ranges    = ["53", "88", "135", "389", "445", "464", "636", "3268-3269", "9389", "49152-65535"]
-                #   source_address_prefix      = ""
-                #   source_address_prefixes    = [""] //OnPremises Corporate networks. Replace it with actual ranges.
-                #   destination_address_prefix = "10.112.0.0/24" // Platform Identity ADDS Subnet Range.
-                # },
-                # {
-                #   name                       = "INBOUND-FROM-azureSupernet-TO-adds-PORT-aadServices-PROT-any-ALLOW" //Inbound rules from Azure Supernet to the ADDS subnet for the required ports and protocols
-                #   priority                   = 502
-                #   direction                  = "Inbound"
-                #   access                     = "Allow"
-                #   protocol                   = "*"
-                #   source_port_range          = "*"
-                #   source_port_ranges         = []
-                #   destination_port_range     = ""
-                #   destination_port_ranges    = ["53", "88", "135", "389", "445", "464", "636", "3268-3269", "9389", "49152-65535"]
-                #   source_address_prefix      = ""
-                #   source_address_prefixes    = [""] //OnPremises Corporate networks. Replace it with actual ranges.
-                #   destination_address_prefix = "10.112.0.0/18" //Azure Supernet Range
-                # },
+              rules = [
                 {
-                  name                       = "INBOUND-FROM-AzureBastion-TO-azurePlatDCs-PORT-22-3389-PROT-any-ALLOW" //Inbound rule from Azure allowed network to azure Platform Domain Controllers on port 22, 3389 and any protocol
-                  priority                   = 503
+                  name                       = "INBOUND-FROM-AzureBastion-TO-azuremgmtVM-PORT-22-3389-PROT-any-ALLOW" //Inbound rule from Azure allowed network to azure Managemnt VM on port 22, 3389 and any protocol
+                  priority                   = 500
                   direction                  = "Inbound"
                   access                     = "Allow"
                   protocol                   = "*"
@@ -100,8 +58,8 @@ configure_management_resources = {
                   destination_port_range     = ""
                   destination_port_ranges    = ["3389","22"]
                   source_address_prefix      = ""
-                  source_address_prefixes    = ["10.112.70.0/24"] //Remote Access Network Ranges- Bastion 
-                  destination_address_prefix = "10.120.0.0/24"  //Platform Identity ADDS Subnet Range
+                  source_address_prefixes    = ["10.112.38.0/24"] //Remote Access Network Ranges- Bastion 
+                  destination_address_prefix = "10.112.16.0/24"  //Platform Management Subnet Range
                 },
                 {
                   name                       = "INBOUND-FROM-subnet-TO-subnet-PORT-any-PROT-any-ALLOW" //Inbound rule from the subnet to the subnet on any port and any protocol'
@@ -111,12 +69,12 @@ configure_management_resources = {
                   protocol                   = "*"
                   source_port_range          = "*"
                   source_port_ranges         = []
-                  destination_port_range     = ""
+                  destination_port_range     = "*"
                   destination_port_ranges    = []
                   source_address_prefix      = ""
-                  source_address_prefixes    = ["10.120.0.0/24"] // Platform Identity ADDS Subnet Range
-                  destination_address_prefix = "10.120.0.0/24" //Platform Identity ADDS Subnet Range
-                },                                   
+                  source_address_prefixes    = ["10.120.16.0/24" ] //  Platform Management Subnet Range 
+                  destination_address_prefix = "10.112.16.0/24" // Platform Management Subnet Range 
+                },                
                 {
                   name                       = "INBOUND-FROM-virtualNetwork-TO-virtualNetwork-PORT-any-PROT-Icmp-ALLOW" //Inbound rules from any to the subnet for ICMP
                   priority                   = 1000
@@ -125,7 +83,7 @@ configure_management_resources = {
                   protocol                   = "Icmp"
                   source_port_range          = "*"
                   source_port_ranges         = []
-                  destination_port_range     = ""
+                  destination_port_range     = "*"
                   destination_port_ranges    = []
                   source_address_prefix      = "VirtualNetwork"
                   source_address_prefixes    = [] 
@@ -140,7 +98,7 @@ configure_management_resources = {
                   protocol                   = "*"
                   source_port_range          = "*"
                   source_port_ranges         = []
-                  destination_port_range     = ""
+                  destination_port_range     = "*"
                   destination_port_ranges    = []
                   source_address_prefix      = "*"
                   source_address_prefixes    = [] 
@@ -170,13 +128,13 @@ configure_management_resources = {
                   protocol                   = "*"
                   source_port_range          = "*"
                   source_port_ranges         = []
-                  destination_port_range     = ""
+                  destination_port_range     = "*"
                   destination_port_ranges    = []
                   source_address_prefix      = "*"
                   source_address_prefixes    = [] 
                   destination_address_prefix = "*" 
                   destinationAddressPrefixes = []
-                }                                                 
+                }                
               ]
               delegations       = []
               service_endpoints = []
