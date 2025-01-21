@@ -3,7 +3,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">= 4.0.0"
+      version = ">= 4.16.0"
       # version = ">= 3.54.0"
       configuration_aliases = [
         azurerm.connectivity,
@@ -28,7 +28,7 @@ terraform {
     }
   }
 
-  required_version = ">= 1.3.1"
+  required_version = ">= 1.10.4"
 
   backend "azurerm" {
     resource_group_name  = "terraform-state-arg"
