@@ -182,7 +182,7 @@ configure_management_resources = {
               service_endpoints = []
             }
           ]
-          hub_network_id               = "/subscriptions/fa90f629-7323-4b3f-aee4-1362cdd64a2e/resourceGroups/arg-testhubvnet/providers/Microsoft.Network/virtualNetworks/vnt-test-hub"
+          hub_network_id               = "/subscriptions/4f747eb9-ea78-44ce-ac5a-f4dc4085645a/resourceGroups/rg-red-spoke1/providers/Microsoft.Network/virtualNetworks/hub-vnet"
           allow_virtual_network_access = true
           allow_forwarded_traffic      = true
           use_remote_gateways          = false
@@ -190,7 +190,7 @@ configure_management_resources = {
       },
       {
         identifier = "vnet_australiasoutheast"
-        enabled    = true
+        enabled    = false
         config = {
           address_space                = ["10.120.16.0/20", ]
           location                     = "australiasoutheast"
