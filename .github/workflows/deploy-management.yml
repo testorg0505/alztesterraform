@@ -54,7 +54,7 @@ jobs:
 
       - name: Terraform workspace
         id: workspace
-        run: terraform workspace select management
+        run: terraform workspace new management
         env:
           ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
           ARM_TENANT_ID: ${{ vars.TENANT_ID }}
