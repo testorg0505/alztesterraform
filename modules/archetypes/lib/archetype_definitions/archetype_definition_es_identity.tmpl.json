@@ -1,9 +1,10 @@
 {
   "es_identity": {
     "policy_assignments": [
-      "Append-Inbound-NSG-Rule",
-      "Append-Outbound-NSG-Rule",
-      "Append-UDR-Route"
+      "Deny-MgmtPorts-Internet",
+      "Deny-Public-IP",
+      "Deny-Subnet-Without-Nsg",
+      "Deploy-VM-Backup"
     ],
     "policy_definitions": [],
     "policy_set_definitions": [],
