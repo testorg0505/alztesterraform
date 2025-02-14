@@ -1,7 +1,6 @@
 {
   "es_sandboxes": {
     "policy_assignments": [
-      "Deny-VNET-Peer-Cross-Sub",
       "Enforce-ALZ-Sandbox"
     ],
     "policy_definitions": [],
